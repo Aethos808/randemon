@@ -1,7 +1,74 @@
 import type { Config } from 'tailwindcss';
+import tailwindcssAnimate from 'tailwindcss-animate';
 
 const config: Config = {
-  content: ['./src/**/*.{ts,tsx}'],
+  darkMode: 'class',
+  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        type: {
+          normal: 'var(--type-normal)',
+          fire: 'var(--type-fire)',
+          water: 'var(--type-water)',
+          electric: 'var(--type-electric)',
+          grass: 'var(--type-grass)',
+          ice: 'var(--type-ice)',
+          fighting: 'var(--type-fighting)',
+          poison: 'var(--type-poison)',
+          ground: 'var(--type-ground)',
+          flying: 'var(--type-flying)',
+          psychic: 'var(--type-psychic)',
+          bug: 'var(--type-bug)',
+          rock: 'var(--type-rock)',
+          ghost: 'var(--type-ghost)',
+          dragon: 'var(--type-dragon)',
+          dark: 'var(--type-dark)',
+          steel: 'var(--type-steel)',
+          fairy: 'var(--type-fairy)',
+        },
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        primary: {
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
+        },
+        destructive: {
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
+        },
+        muted: {
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
+        },
+        popover: {
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)',
+        },
+        card: {
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
+        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 0.25rem)',
+        sm: 'calc(var(--radius) - 0.5rem)',
+      },
+    },
+  },
+  plugins: [tailwindcssAnimate],
 };
 
 export default config;
