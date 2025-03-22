@@ -2,21 +2,48 @@ import Image from 'next/image';
 import { Badge } from '@/components/shadcn/ui/badge';
 import { Button } from '@/components/shadcn/ui/button';
 import { CardWithTitle } from '@/components/layout/CardWithTitle/CardWithTitle';
+import { FileQuestion } from 'lucide-react';
 
-type Move = {
+export type MoveWithType = {
   name: string;
   type: string;
 };
 
-export type Moves = Move[] & { length: 4 };
+type Type =
+  | 'Normal'
+  | 'Fire'
+  | 'Water'
+  | 'Electric'
+  | 'Grass'
+  | 'Ice'
+  | 'Fighting'
+  | 'Poison'
+  | 'Ground'
+  | 'Flying'
+  | 'Psychic'
+  | 'Bug'
+  | 'Rock'
+  | 'Ghost'
+  | 'Dragon'
+  | 'Dark'
+  | 'Steel'
+  | 'Fairy';
 
-type PokemonCardProps = {
+export type MovesWithType = MoveWithType[] & { length: 4 };
+export type Types = Type[] & ({ length: 2 } | { length: 1 });
+export type PokemonSprite =
+  | `https://play.pokemonshowdown.com/sprites/ani/${string}.gif`
+  | `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${string}`
+  | string;
+export type ItemSprite = `https://play.pokemonshowdown.com/sprites/itemicons/${string}.png` | string;
+
+export type PokemonCardProps = {
   name: string;
-  type: string[];
+  type: Types;
   ability: string;
-  moves: Moves;
-  pokemonImage: string;
-  itemImage: string;
+  moves: MovesWithType;
+  pokemonImage: PokemonSprite;
+  itemImage: ItemSprite;
   item: string;
 };
 
@@ -35,11 +62,16 @@ export const PokemonCard = (props: PokemonCardProps) => {
               height={100}
               className="flex justify-self-center w-20 h-20 object-contain"
               priority
+              unoptimized
             />
           </div>
           <div className="absolute bottom-0 right-0 flex flex-col items-center">
-            <div className="relative w-8 h-8">
-              <Image src={itemImage} alt={item} width={30} height={30} className="w-auto h-auto" />
+            <div className="relative">
+              {itemImage ? (
+                <Image src={itemImage} alt={item} width={30} height={30} className="w-7 h-7" />
+              ) : (
+                <FileQuestion />
+              )}
             </div>
             <div className="text-sm">{item}</div>
           </div>
