@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans bg-background text-foreground min-h-screen">
         <ThemeProvider>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">{children}</div>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">{children}</div>
         </ThemeProvider>
       </body>
     </html>
