@@ -7,6 +7,7 @@ import { getRandomMoves } from '@/lib/utils/randomMoves';
 import { getRandomPokeApiPokemonId } from '@/lib/utils/randomPokemonId';
 import { getPokemon } from '@/services/pokemon';
 import { capitalizeWords } from '@/lib/utils/string';
+import { VersionText } from '@/components/ui/VersionText';
 
 const generateRandomPokemon = async (usedAbilities: Set<string>, usedItems: Set<string>) => {
   const pokeApiPokemonId = getRandomPokeApiPokemonId();
@@ -48,6 +49,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col gap-y-4 row-start-2 items-center sm:items-start">
+      <VersionText />
       <Header />
       <RegenerateButton />
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
