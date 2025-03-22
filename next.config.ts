@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   images: {
-    domains: ['projectpokemon.org'],
+    domains: ['play.pokemonshowdown.com', 'raw.githubusercontent.com'],
   },
 };
 
