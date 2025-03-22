@@ -1,5 +1,6 @@
 import { Header } from '@/components/ui/Header';
 import { PokemonCard, type ItemSprite, type PokemonSprite, type Types } from '@/components/ui/PokemonCard';
+import { RegenerateButton } from '@/components/ui/RegenerateButton';
 import { getRandomAbility } from '@/lib/utils/randomAbility';
 import { getRandomItem } from '@/lib/utils/randomItem';
 import { getRandomMoves } from '@/lib/utils/randomMoves';
@@ -34,6 +35,7 @@ export default async function Home() {
   return (
     <main className="flex flex-col gap-y-4 row-start-2 items-center sm:items-start">
       <Header />
+      <RegenerateButton />
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
         {randomPokemon.map((pokemon) => (
           <PokemonCard key={pokemon.name} {...pokemon} />
