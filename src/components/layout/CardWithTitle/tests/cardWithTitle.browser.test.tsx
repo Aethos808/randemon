@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { CardWithTitle } from '@/components/CardWithTitle/CardWithTitle';
+import { CardWithTitle } from '@/components/layout/CardWithTitle/CardWithTitle';
 
 describe(CardWithTitle, () => {
   it('should render the card with title', () => {

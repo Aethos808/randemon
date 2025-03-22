@@ -14,6 +14,7 @@ module.exports = {
     'plugin:testing-library/react',
     'plugin:jest-dom/recommended',
   ],
+  ignores: ['package-lock.json', 'node_modules', '.next'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
