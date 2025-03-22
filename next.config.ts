@@ -4,7 +4,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   images: {
-    domains: ['play.pokemonshowdown.com', 'raw.githubusercontent.com'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'play.pokemonshowdown.com' },
+      { protocol: 'https', hostname: 'raw.githubusercontent.com' },
+    ],
   },
 };
 
