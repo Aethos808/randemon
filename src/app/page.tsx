@@ -8,7 +8,7 @@ import { getRandomPokeApiPokemonId } from '@/lib/utils/randomPokemonId';
 import { getPokemon } from '@/services/pokemon';
 import { capitalizeWords } from '@/lib/utils/string';
 
-const generateRandomPokemon = async () => {
+const generateRandomPokemon = async (usedAbilities: Set<string>, usedItems: Set<string>) => {
   const pokeApiPokemonId = getRandomPokeApiPokemonId();
   const pokemonFromPokeApi = await getPokemon(pokeApiPokemonId);
 
@@ -16,7 +16,17 @@ const generateRandomPokemon = async () => {
     pokemonFromPokeApi.sprites.other.showdown.front_default ||
     pokemonFromPokeApi.sprites.other['official-artwork'].front_default;
 
-  const itemInfo = await getRandomItem();
+  let ability;
+  do {
+    ability = capitalizeWords(getRandomAbility(pokemonFromPokeApi.abilities));
+  } while (usedAbilities.has(ability));
+  usedAbilities.add(ability);
+
+  let itemInfo;
+  do {
+    itemInfo = await getRandomItem();
+  } while (usedItems.has(itemInfo.name));
+  usedItems.add(itemInfo.name);
 
   return {
     name: capitalizeWords(pokemonFromPokeApi.name),
@@ -30,7 +40,10 @@ const generateRandomPokemon = async () => {
 };
 
 export default async function Home() {
-  const pokemonPromises = Array.from({ length: 6 }, () => generateRandomPokemon());
+  const usedAbilities = new Set<string>();
+  const usedItems = new Set<string>();
+
+  const pokemonPromises = Array.from({ length: 6 }, () => generateRandomPokemon(usedAbilities, usedItems));
   const randomPokemon = await Promise.all(pokemonPromises);
 
   return (

@@ -14,7 +14,7 @@ export function RegenerateButton() {
   return (
     <Button
       onClick={handleRegenerate}
-      className="w-full md:w-auto px-8 py-6 text-lg font-semibold rounded-full"
+      className="w-full md:w-auto px-8 py-6 text-lg font-semibold rounded-full cursor-pointer"
       variant="default"
     >
       <Dices className="mr-2" />
