@@ -60,12 +60,27 @@ export const PokemonCard = (props: PokemonCardProps) => {
               alt={name}
               width={100}
               height={100}
-              className="flex justify-self-center w-20 h-20 object-contain"
+              className="flex justify-self-center w-30 h-30 object-contain"
               priority
               unoptimized
             />
           </div>
-          <div className="absolute bottom-0 right-0 flex flex-col items-center">
+          <div className="absolute bottom-0 right-0 flex flex-col items-center"></div>
+        </div>
+        <div className="flex gap-2">
+          {type.map((t) => (
+            <Badge key={t} style={{ backgroundColor: `var(--type-${t.toLowerCase()})` }}>
+              {t}
+            </Badge>
+          ))}
+        </div>
+        <div className="flex justify-between">
+          <div className="flex items-center">
+            <span className="font-semibold">Ability: </span>
+            <span className="ml-1">{ability}</span>
+          </div>
+
+          <div className="flex flex-col items-center">
             <div className="relative">
               {itemImage ? (
                 <Image src={itemImage} alt={item} width={30} height={30} className="w-7 h-7" />
@@ -75,17 +90,6 @@ export const PokemonCard = (props: PokemonCardProps) => {
             </div>
             <div className="text-sm">{item}</div>
           </div>
-        </div>
-        <div className="flex gap-2">
-          {type.map((t) => (
-            <Badge key={t} style={{ backgroundColor: `var(--type-${t.toLowerCase()})` }}>
-              {t}
-            </Badge>
-          ))}
-        </div>
-        <div>
-          <span className="font-semibold">Ability: </span>
-          {ability}
         </div>
 
         <div className="space-y-2">

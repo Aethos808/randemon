@@ -6,6 +6,7 @@ import { getRandomItem } from '@/lib/utils/randomItem';
 import { getRandomMoves } from '@/lib/utils/randomMoves';
 import { getRandomPokeApiPokemonId } from '@/lib/utils/randomPokemonId';
 import { getPokemon } from '@/services/pokemon';
+import { capitalizeWords } from '@/lib/utils/string';
 
 const generateRandomPokemon = async () => {
   const pokeApiPokemonId = getRandomPokeApiPokemonId();
@@ -18,13 +19,13 @@ const generateRandomPokemon = async () => {
   const itemInfo = await getRandomItem();
 
   return {
-    name: pokemonFromPokeApi.name,
+    name: capitalizeWords(pokemonFromPokeApi.name),
     type: pokemonFromPokeApi.types.map((t) => t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1)) as Types,
-    ability: getRandomAbility(pokemonFromPokeApi.abilities),
+    ability: capitalizeWords(getRandomAbility(pokemonFromPokeApi.abilities)),
     moves: await getRandomMoves(pokemonFromPokeApi.moves),
     pokemonImage: pokemonImage as PokemonSprite,
     itemImage: itemInfo.sprite as ItemSprite,
-    item: itemInfo.name,
+    item: capitalizeWords(itemInfo.name),
   };
 };
 

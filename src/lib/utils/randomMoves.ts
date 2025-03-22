@@ -1,5 +1,6 @@
 import type { MovesWithType } from '@/components/ui/PokemonCard';
 import type { PokeApiMoveFromPokemon } from '@/services/pokemon';
+import { capitalizeWords } from './string';
 
 async function getMoveType(moveName: string): Promise<string> {
   const response = await fetch(`https://pokeapi.co/api/v2/move/${moveName}`);
@@ -22,7 +23,7 @@ export async function getRandomMoves(moves: PokeApiMoveFromPokemon[]): Promise<M
       const type = await getMoveType(moveName);
 
       return {
-        name: moveName,
+        name: capitalizeWords(moveName),
         type,
       };
     }),
