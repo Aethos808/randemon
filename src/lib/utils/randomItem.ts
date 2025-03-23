@@ -24,7 +24,7 @@ export async function getRandomItem(): Promise<ItemInfo> {
     throw new Error('Failed to fetch held items');
   }
   const data: PokeApiItemCategoryResponse = await response.json();
-  const ignoredItems = new Set(['pass-orb']);
+  const ignoredItems = new Set(['pass-orb', 'smoke-ball']);
   let selectedItem: PokeApiItemFromCategory;
 
   do {
