@@ -29,7 +29,7 @@ export function ExportDialog({ isOpen, onClose, pokemon }: ExportDialogProps) {
         <DialogDescription>
           {pokemon.map((p, index) => (
             <span key={p.name} className="whitespace-pre-wrap font-mono block">
-              {`${formatPokemon(p)} + ${index != 5 ? '\n\n' : ''}`}
+              {`${formatPokemon(p)} ${index != 5 ? '\n\n' : ''}`}
             </span>
           ))}
         </DialogDescription>
