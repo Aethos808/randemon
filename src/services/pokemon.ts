@@ -1,3 +1,5 @@
+import { getRandomPokeApiPokemonId } from '@/lib/utils/randomPokemonId';
+
 type PokeApiTypeFromPokemon = {
   type: {
     name: string;
@@ -38,10 +40,19 @@ type PokeApiResponseFromPokemon = {
   sprites: PokeApiSpritesFromPokemon;
 };
 
-export async function getPokemon(id: number): Promise<PokeApiResponseFromPokemon> {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch pokemon with id ${id}`);
-  }
-  return response.json();
+export async function getPokemon(gen9PokemonSet: Set<string>): Promise<PokeApiResponseFromPokemon> {
+  let pokemonFromPokeApi: PokeApiResponseFromPokemon;
+  let pokemonName: string;
+
+  do {
+    const pokeApiPokemonId = getRandomPokeApiPokemonId();
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeApiPokemonId}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch pokemon with id ${pokeApiPokemonId}`);
+    }
+    pokemonFromPokeApi = await response.json();
+    pokemonName = pokemonFromPokeApi.name;
+  } while (!gen9PokemonSet.has(pokemonName));
+
+  return pokemonFromPokeApi;
 }

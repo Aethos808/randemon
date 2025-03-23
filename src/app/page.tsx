@@ -4,15 +4,18 @@ import { RegenerateButton } from '@/components/ui/RegenerateButton';
 import { getRandomAbility } from '@/lib/utils/randomAbility';
 import { getRandomItem } from '@/lib/utils/randomItem';
 import { getRandomMoves } from '@/lib/utils/randomMoves';
-import { getRandomPokeApiPokemonId } from '@/lib/utils/randomPokemonId';
+import { getGen9Pokemon } from '@/lib/utils/getGen9Pokemon';
 import { getPokemon } from '@/services/pokemon';
 import { capitalizeWords } from '@/lib/utils/string';
 import { VersionText } from '@/components/ui/VersionText';
 import { ExportButton } from '@/components/ui/ExportButton';
 
-const generateRandomPokemon = async (usedAbilities: Set<string>, usedItems: Set<string>) => {
-  const pokeApiPokemonId = getRandomPokeApiPokemonId();
-  const pokemonFromPokeApi = await getPokemon(pokeApiPokemonId);
+const generateRandomPokemon = async (
+  usedAbilities: Set<string>,
+  usedItems: Set<string>,
+  gen9PokemonSet: Set<string>,
+) => {
+  const pokemonFromPokeApi = await getPokemon(gen9PokemonSet);
   console.log(pokemonFromPokeApi);
 
   const pokemonImage =
@@ -45,8 +48,11 @@ const generateRandomPokemon = async (usedAbilities: Set<string>, usedItems: Set<
 export default async function Home() {
   const usedAbilities = new Set<string>();
   const usedItems = new Set<string>();
+  const gen9PokemonSet = getGen9Pokemon();
 
-  const pokemonPromises = Array.from({ length: 6 }, () => generateRandomPokemon(usedAbilities, usedItems));
+  const pokemonPromises = Array.from({ length: 6 }, () =>
+    generateRandomPokemon(usedAbilities, usedItems, gen9PokemonSet),
+  );
   const randomPokemon = await Promise.all(pokemonPromises);
 
   return (
