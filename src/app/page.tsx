@@ -16,7 +16,6 @@ const generateRandomPokemon = async (
   gen9PokemonSet: Set<string>,
 ) => {
   const pokemonFromPokeApi = await getPokemon(gen9PokemonSet);
-  console.log(pokemonFromPokeApi);
 
   const pokemonImage =
     pokemonFromPokeApi.sprites.other.showdown.front_default ||
