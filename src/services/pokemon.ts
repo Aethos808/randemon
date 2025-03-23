@@ -46,7 +46,7 @@ export async function getPokemon(gen9PokemonSet: Set<string>): Promise<PokeApiRe
 
   do {
     const pokeApiPokemonId = getRandomPokeApiPokemonId();
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeApiPokemonId}`, { cache: 'no-store' });
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeApiPokemonId}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch pokemon with id ${pokeApiPokemonId}`);
     }
