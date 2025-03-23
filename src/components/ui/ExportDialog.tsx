@@ -25,7 +25,7 @@ export function ExportDialog({ isOpen, onClose, pokemon }: ExportDialogProps) {
         <DialogHeader>
           <DialogTitle>Export Team</DialogTitle>
         </DialogHeader>
-        <DialogDescription>You can import this text into Showdown to build a team!</DialogDescription>
+        <DialogDescription>ONLY - [Gen 9] Anything Goes</DialogDescription>
         <DialogDescription>
           {pokemon.map((p, index) => (
             <span key={p.name} className="whitespace-pre-wrap font-mono block">

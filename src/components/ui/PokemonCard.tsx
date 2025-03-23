@@ -74,13 +74,13 @@ export const PokemonCard = (props: PokemonCardProps) => {
             </Badge>
           ))}
         </div>
-        <div className="flex justify-between">
+        <div className="flex flex-col md:flex-row md:justify-between gap-4 w-full">
           <div className="flex items-center">
             <span className="font-semibold">Ability: </span>
             <span className="ml-1">{ability}</span>
           </div>
 
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col md:items-center">
             <div className="relative">
               {itemImage ? (
                 <Image src={itemImage} alt={item} width={30} height={30} className="w-7 h-7" />

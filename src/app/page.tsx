@@ -13,6 +13,7 @@ import { ExportButton } from '@/components/ui/ExportButton';
 const generateRandomPokemon = async (usedAbilities: Set<string>, usedItems: Set<string>) => {
   const pokeApiPokemonId = getRandomPokeApiPokemonId();
   const pokemonFromPokeApi = await getPokemon(pokeApiPokemonId);
+  console.log(pokemonFromPokeApi);
 
   const pokemonImage =
     pokemonFromPokeApi.sprites.other.showdown.front_default ||
@@ -52,7 +53,7 @@ export default async function Home() {
     <main className="flex flex-col gap-y-4 row-start-2 items-center sm:items-start">
       <VersionText />
       <Header />
-      <div className="flex flex-col sm:flex-row gap-4 w-full">
+      <div className="flex flex-col lg:flex-row gap-4 w-full">
         <RegenerateButton />
         <ExportButton pokemon={randomPokemon} />
       </div>

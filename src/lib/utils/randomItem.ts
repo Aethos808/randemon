@@ -24,8 +24,13 @@ export async function getRandomItem(): Promise<ItemInfo> {
     throw new Error('Failed to fetch held items');
   }
   const data: PokeApiItemCategoryResponse = await response.json();
-  const randomIndex = Math.floor(Math.random() * data.items.length);
-  const selectedItem = data.items[randomIndex];
+  const ignoredItems = new Set(['pass-orb']);
+  let selectedItem: PokeApiItemFromCategory;
+
+  do {
+    const randomIndex = Math.floor(Math.random() * data.items.length);
+    selectedItem = data.items[randomIndex];
+  } while (ignoredItems.has(selectedItem.name));
 
   const itemResponse = await fetch(`https://pokeapi.co/api/v2/item/${selectedItem.name}`);
   if (!itemResponse.ok) {
