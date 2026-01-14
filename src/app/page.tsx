@@ -38,7 +38,7 @@ const generateRandomPokemon = async (
   return {
     name: capitalizeWords(pokemonFromPokeApi.name),
     type: pokemonFromPokeApi.types.map((t) => t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1)) as Types,
-    ability: capitalizeWords(getRandomAbility(pokemonFromPokeApi.abilities)),
+    ability,
     moves: getRandomMoves(pokemonFromPokeApi.name, allGen9MovesPerPokemon),
     pokemonImage: pokemonImage as PokemonSprite,
     itemImage: itemInfo.sprite as ItemSprite,
