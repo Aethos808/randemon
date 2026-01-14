@@ -1,11 +1,11 @@
-import type { Types, PokemonCardProps } from '@/components/ui/PokemonCard';
+import type { PokemonCardProps, Types } from '@/components/ui/PokemonCard';
+import * as allPokemonMoves from '@/lib/pokemon-moves.json';
+import { getGen9Pokemon } from '@/lib/utils/getGen9Pokemon';
 import { getRandomAbility } from '@/lib/utils/randomAbility';
 import { getRandomItem } from '@/lib/utils/randomItem';
 import { getRandomMoves, type AllPokemonMovesGen9ByPokemon } from '@/lib/utils/randomMoves';
-import { getGen9Pokemon } from '@/lib/utils/getGen9Pokemon';
-import { getPokemon } from '@/services/pokemon';
 import { capitalizeWords } from '@/lib/utils/string';
-import * as allPokemonMoves from '@/lib/pokemon-moves.json';
+import { getPokemon } from '@/services/pokemon';
 
 const TEAM_SIZE = 6;
 const FALLBACK_POKEMON_IMAGE = '/missingno-fallback.png';
@@ -16,7 +16,15 @@ const generateRandomPokemon = async (
   gen9PokemonSet: Set<string>,
   allGen9MovesPerPokemon: AllPokemonMovesGen9ByPokemon,
 ): Promise<PokemonCardProps> => {
-  const pokemonFromPokeApi = await getPokemon(gen9PokemonSet);
+  let pokemonFromPokeApi = await getPokemon(gen9PokemonSet);
+
+  // Retry if Pokemon has no move data (name mismatch between PokeAPI and move JSON)
+  while (!allGen9MovesPerPokemon[pokemonFromPokeApi.name]) {
+    console.error(
+      `[Randemon] No move data found for Pokemon: ${pokemonFromPokeApi.name}. Retrying with another Pokemon.`,
+    );
+    pokemonFromPokeApi = await getPokemon(gen9PokemonSet);
+  }
 
   const pokemonImage =
     pokemonFromPokeApi.sprites.other.showdown.front_default ||
