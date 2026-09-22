@@ -9,7 +9,7 @@ export default defineConfig({
     env: {
       APP_ENV: 'test',
     },
-    workspace: [
+    projects: [
       {
         extends: true,
         plugins: [react()],
