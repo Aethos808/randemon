@@ -30,7 +30,7 @@ describe('getRandomItem', () => {
     );
   });
 
-  it('rejects malformed item data with item context', async () => {
+  it('accepts items without a sprite so the UI can render its fallback', async () => {
     const fetcher = vi.fn<typeof fetch>(async () =>
       createJsonResponse({
         name: 'bright-powder',
@@ -38,8 +38,22 @@ describe('getRandomItem', () => {
       }),
     );
 
+    await expect(getRandomItem({ fetcher, random: () => 0 })).resolves.toEqual({
+      name: 'bright-powder',
+      sprite: null,
+    });
+  });
+
+  it('rejects malformed item data with item context', async () => {
+    const fetcher = vi.fn<typeof fetch>(async () =>
+      createJsonResponse({
+        name: 'bright-powder',
+        sprites: { default: 42 },
+      }),
+    );
+
     await expect(getRandomItem({ fetcher, random: () => 0 })).rejects.toThrow(
-      'Invalid PokeAPI item response for bright-powder: sprites.default must be a string',
+      'Invalid PokeAPI item response for bright-powder: sprites.default must be a string or null',
     );
   });
 });

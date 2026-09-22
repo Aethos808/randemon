@@ -5,7 +5,7 @@ import { fetchPokeApiJson, type PokeApiRequestOptions } from '@/services/pokeApi
 
 export type ItemInfo = {
   name: string;
-  sprite: string;
+  sprite: string | null;
 };
 
 type GetRandomItemOptions = PokeApiRequestOptions & {
@@ -21,8 +21,8 @@ function parseItemResponse(value: unknown, itemName: string): ItemInfo {
     throw new Error(`Invalid PokeAPI item response for ${itemName}: name must be a non-empty string`);
   }
 
-  if (!isRecord(value.sprites) || typeof value.sprites.default !== 'string') {
-    throw new Error(`Invalid PokeAPI item response for ${itemName}: sprites.default must be a string`);
+  if (!isRecord(value.sprites) || (typeof value.sprites.default !== 'string' && value.sprites.default !== null)) {
+    throw new Error(`Invalid PokeAPI item response for ${itemName}: sprites.default must be a string or null`);
   }
 
   return {
