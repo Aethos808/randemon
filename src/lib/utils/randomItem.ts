@@ -3,6 +3,8 @@
 import heldItems from '@/lib/held-items.json';
 import { fetchPokeApiJson, type PokeApiRequestOptions } from '@/services/pokeApi';
 
+import { getRandomValue } from './random';
+
 export type ItemInfo = {
   name: string;
   sprite: string | null;
@@ -33,12 +35,7 @@ function parseItemResponse(value: unknown, itemName: string): ItemInfo {
 
 export async function getRandomItem(options: GetRandomItemOptions = {}): Promise<ItemInfo> {
   const { random = Math.random, ...requestOptions } = options;
-  const randomValue = random();
-
-  if (randomValue < 0 || randomValue >= 1) {
-    throw new Error(`Random source must return a value from 0 up to, but not including, 1; received ${randomValue}`);
-  }
-
+  const randomValue = getRandomValue(random, 'selecting a held item');
   const randomIndex = Math.floor(randomValue * heldItems.items.length);
   const selectedItem = heldItems.items[randomIndex];
 

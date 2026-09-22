@@ -1,17 +1,11 @@
 import type { PokemonMovesByName } from '@/lib/validation/pokemonMoves';
 import { createPokemonMoves, type PokemonMoves } from '@/types/pokemon';
 
+import { getRandomValue, type RandomSource } from './random';
 import { capitalizeWords } from './string';
 
-type RandomSource = () => number;
-
 function getRandomIndex(length: number, random: RandomSource): number {
-  const randomValue = random();
-
-  if (randomValue < 0 || randomValue >= 1) {
-    throw new Error(`Random source must return a value from 0 up to, but not including, 1; received ${randomValue}`);
-  }
-
+  const randomValue = getRandomValue(random, 'selecting a move');
   return Math.floor(randomValue * length);
 }
 
