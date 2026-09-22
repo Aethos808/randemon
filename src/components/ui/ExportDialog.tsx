@@ -2,18 +2,8 @@ import { Copy } from 'lucide-react';
 
 import { Button } from '@/components/shadcn/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/shadcn/ui/dialog';
+import { formatTeamExport } from '@/lib/utils/teamExport';
 import type { Pokemon } from '@/types/pokemon';
-
-function formatPokemon(pokemon: Pokemon) {
-  return `${pokemon.name} @ ${pokemon.item}
-Ability: ${pokemon.ability}
-EVs: 1 HP
-Bashful Nature
-- ${pokemon.moves[0].name}
-- ${pokemon.moves[1].name}
-- ${pokemon.moves[2].name}
-- ${pokemon.moves[3].name}`;
-}
 
 type ExportDialogProps = {
   isOpen: boolean;
@@ -22,7 +12,7 @@ type ExportDialogProps = {
 };
 
 export function ExportDialog({ isOpen, onClose, pokemon }: ExportDialogProps) {
-  const exportText = pokemon.map((p, index) => `${formatPokemon(p)}${index !== 5 ? '\n\n' : ''}`).join('');
+  const exportText = formatTeamExport(pokemon);
 
   const handleCopy = () => {
     try {
