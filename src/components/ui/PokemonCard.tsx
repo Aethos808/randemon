@@ -4,51 +4,9 @@ import Image from 'next/image';
 import { CardWithTitle } from '@/components/layout/CardWithTitle/CardWithTitle';
 import { Badge } from '@/components/shadcn/ui/badge';
 import { Button } from '@/components/shadcn/ui/button';
+import type { Pokemon } from '@/types/pokemon';
 
-export type MoveWithType = {
-  name: string;
-  type: string;
-};
-
-type Type =
-  | 'Normal'
-  | 'Fire'
-  | 'Water'
-  | 'Electric'
-  | 'Grass'
-  | 'Ice'
-  | 'Fighting'
-  | 'Poison'
-  | 'Ground'
-  | 'Flying'
-  | 'Psychic'
-  | 'Bug'
-  | 'Rock'
-  | 'Ghost'
-  | 'Dragon'
-  | 'Dark'
-  | 'Steel'
-  | 'Fairy';
-
-export type MovesWithType = MoveWithType[] & { length: 4 };
-export type Types = Type[] & ({ length: 2 } | { length: 1 });
-export type PokemonSprite =
-  | `https://play.pokemonshowdown.com/sprites/ani/${string}.gif`
-  | `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${string}`
-  | string;
-export type ItemSprite = `https://play.pokemonshowdown.com/sprites/itemicons/${string}.png` | string;
-
-export type PokemonCardProps = {
-  name: string;
-  type: Types;
-  ability: string;
-  moves: MovesWithType;
-  pokemonImage: PokemonSprite;
-  itemImage: ItemSprite;
-  item: string;
-};
-
-export const PokemonCard = (props: PokemonCardProps) => {
+export const PokemonCard = (props: Pokemon) => {
   const { name, type, ability, moves, pokemonImage, itemImage, item } = props;
 
   return (

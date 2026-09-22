@@ -2,10 +2,9 @@ import { Copy } from 'lucide-react';
 
 import { Button } from '@/components/shadcn/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/shadcn/ui/dialog';
+import type { Pokemon } from '@/types/pokemon';
 
-import type { PokemonCardProps } from './PokemonCard';
-
-function formatPokemon(pokemon: PokemonCardProps) {
+function formatPokemon(pokemon: Pokemon) {
   return `${pokemon.name} @ ${pokemon.item}
 Ability: ${pokemon.ability}
 EVs: 1 HP
@@ -19,7 +18,7 @@ Bashful Nature
 type ExportDialogProps = {
   isOpen: boolean;
   onClose: () => void;
-  pokemon: PokemonCardProps[];
+  pokemon: Pokemon[];
 };
 
 export function ExportDialog({ isOpen, onClose, pokemon }: ExportDialogProps) {

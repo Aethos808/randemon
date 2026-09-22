@@ -1,8 +1,9 @@
-import type { MovesWithType } from '@/components/ui/PokemonCard';
+import type { PokemonMovesByName } from '@/lib/validation/pokemonMoves';
+import { createPokemonMoves, type PokemonMoves } from '@/types/pokemon';
 
 import { capitalizeWords } from './string';
 
-export function getRandomMoves(pokemonName: string, moves: AllPokemonMovesGen9ByPokemon): MovesWithType {
+export function getRandomMoves(pokemonName: string, moves: PokemonMovesByName): PokemonMoves {
   const indices = new Set<number>();
 
   while (indices.size < 4) {
@@ -16,25 +17,5 @@ export function getRandomMoves(pokemonName: string, moves: AllPokemonMovesGen9By
     };
   });
 
-  return selectedMoves as MovesWithType;
+  return createPokemonMoves(selectedMoves);
 }
-
-type LearnMethod = 'level-up' | 'tm' | 'egg' | 'evolution' | 'reminder';
-
-export type PokemonMove = {
-  name: string;
-  learntBy: LearnMethod[];
-  levelLearnt: string | null;
-  type: string;
-  category: string;
-  power: string | null;
-  accuracy: string | null | 'infinity';
-};
-
-export type PokemonMoves = {
-  moves: PokemonMove[];
-};
-
-export type AllPokemonMovesGen9ByPokemon = {
-  [pokemonName: string]: PokemonMoves;
-};

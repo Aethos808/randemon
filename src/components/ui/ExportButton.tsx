@@ -5,10 +5,10 @@ import { useState } from 'react';
 
 import { Button } from '@/components/shadcn/ui/button';
 import { ExportDialog } from '@/components/ui/ExportDialog';
-import type { PokemonCardProps } from '@/components/ui/PokemonCard';
+import type { Pokemon } from '@/types/pokemon';
 
 type ExportButtonProps = {
-  pokemon: PokemonCardProps[];
+  pokemon: Pokemon[];
 };
 
 export function ExportButton({ pokemon }: ExportButtonProps) {
