@@ -1,5 +1,5 @@
-import { Card } from '@/components/shadcn/ui/card';
 import { Title } from '@/components/layout/title/Title';
+import { Card } from '@/components/shadcn/ui/card';
 
 type CardWithTitleProps = {
   title: string;

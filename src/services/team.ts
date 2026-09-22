@@ -3,7 +3,7 @@ import * as allPokemonMoves from '@/lib/pokemon-moves.json';
 import { getGen9Pokemon } from '@/lib/utils/getGen9Pokemon';
 import { getRandomAbility } from '@/lib/utils/randomAbility';
 import { getRandomItem } from '@/lib/utils/randomItem';
-import { getRandomMoves, type AllPokemonMovesGen9ByPokemon } from '@/lib/utils/randomMoves';
+import { type AllPokemonMovesGen9ByPokemon, getRandomMoves } from '@/lib/utils/randomMoves';
 import { capitalizeWords } from '@/lib/utils/string';
 import { getPokemon } from '@/services/pokemon';
 

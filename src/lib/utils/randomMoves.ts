@@ -1,8 +1,10 @@
 import type { MovesWithType } from '@/components/ui/PokemonCard';
+
 import { capitalizeWords } from './string';
 
 export function getRandomMoves(pokemonName: string, moves: AllPokemonMovesGen9ByPokemon): MovesWithType {
   const indices = new Set<number>();
+
   while (indices.size < 4) {
     indices.add(Math.floor(Math.random() * moves[pokemonName].moves.length));
   }

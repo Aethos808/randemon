@@ -1,8 +1,8 @@
+import { ExportButton } from '@/components/ui/ExportButton';
 import { Header } from '@/components/ui/Header';
 import { PokemonCard } from '@/components/ui/PokemonCard';
 import { RegenerateButton } from '@/components/ui/RegenerateButton';
 import { VersionText } from '@/components/ui/VersionText';
-import { ExportButton } from '@/components/ui/ExportButton';
 import { generateRandomTeam } from '@/services/team';
 
 export default async function Home() {

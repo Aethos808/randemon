@@ -1,8 +1,9 @@
 'use client';
 
-import { Button } from '@/components/shadcn/ui/button';
-import { useRouter } from 'next/navigation';
 import { Dices } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
+import { Button } from '@/components/shadcn/ui/button';
 
 export function RegenerateButton() {
   const router = useRouter();

@@ -1,8 +1,9 @@
+import { FileQuestion } from 'lucide-react';
 import Image from 'next/image';
+
+import { CardWithTitle } from '@/components/layout/CardWithTitle/CardWithTitle';
 import { Badge } from '@/components/shadcn/ui/badge';
 import { Button } from '@/components/shadcn/ui/button';
-import { CardWithTitle } from '@/components/layout/CardWithTitle/CardWithTitle';
-import { FileQuestion } from 'lucide-react';
 
 export type MoveWithType = {
   name: string;

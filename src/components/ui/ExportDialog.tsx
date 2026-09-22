@@ -1,6 +1,8 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/shadcn/ui/dialog';
-import { Button } from '@/components/shadcn/ui/button';
 import { Copy } from 'lucide-react';
+
+import { Button } from '@/components/shadcn/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/shadcn/ui/dialog';
+
 import type { PokemonCardProps } from './PokemonCard';
 
 function formatPokemon(pokemon: PokemonCardProps) {
