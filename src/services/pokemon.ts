@@ -25,7 +25,7 @@ type PokeApiSpritesFromPokemon = {
   };
 };
 
-type PokeApiResponseFromPokemon = {
+export type PokeApiPokemon = {
   name: string;
   types: Array<PokeApiTypeFromPokemon>;
   abilities: Array<PokeApiAbilityFromPokemon>;
@@ -34,7 +34,10 @@ type PokeApiResponseFromPokemon = {
 
 type GetPokemonOptions = PokeApiRequestOptions & {
   getPokemonId?: () => number;
+  maxAttempts?: number;
 };
+
+const DEFAULT_MAX_POKEMON_ATTEMPTS = 25;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -56,7 +59,7 @@ function parseFrontDefault(value: unknown, field: string): PokeApiArtworkFromPok
   return { front_default: value.front_default };
 }
 
-function parsePokemonResponse(value: unknown): PokeApiResponseFromPokemon {
+function parsePokemonResponse(value: unknown): PokeApiPokemon {
   if (!isRecord(value) || typeof value.name !== 'string' || value.name.length === 0) {
     throw new Error('Invalid PokeAPI Pokémon response: name must be a non-empty string');
   }
@@ -104,12 +107,14 @@ function parsePokemonResponse(value: unknown): PokeApiResponseFromPokemon {
 export async function getPokemon(
   gen9PokemonSet: Set<string>,
   options: GetPokemonOptions = {},
-): Promise<PokeApiResponseFromPokemon> {
-  const { getPokemonId = getRandomPokeApiPokemonId, ...requestOptions } = options;
-  let pokemonFromPokeApi: PokeApiResponseFromPokemon;
-  let pokemonName: string;
+): Promise<PokeApiPokemon> {
+  const {
+    getPokemonId = getRandomPokeApiPokemonId,
+    maxAttempts = DEFAULT_MAX_POKEMON_ATTEMPTS,
+    ...requestOptions
+  } = options;
 
-  do {
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     const pokeApiPokemonId = getPokemonId();
     const endpoint = `https://pokeapi.co/api/v2/pokemon/${pokeApiPokemonId}`;
     const responseData = await fetchPokeApiJson(endpoint, {
@@ -118,9 +123,12 @@ export async function getPokemon(
       context: `Pokémon ${pokeApiPokemonId}`,
     });
 
-    pokemonFromPokeApi = parsePokemonResponse(responseData);
-    pokemonName = pokemonFromPokeApi.name;
-  } while (!gen9PokemonSet.has(pokemonName));
+    const pokemonFromPokeApi = parsePokemonResponse(responseData);
 
-  return pokemonFromPokeApi;
+    if (gen9PokemonSet.has(pokemonFromPokeApi.name)) {
+      return pokemonFromPokeApi;
+    }
+  }
+
+  throw new Error(`Unable to select a Generation 9 Pokémon after ${maxAttempts} attempts`);
 }

@@ -71,6 +71,20 @@ describe('getPokemon', () => {
     ).rejects.toThrow('Invalid PokeAPI Pokémon response: types must contain one or two entries');
   });
 
+  it('stops searching when no Generation 9 Pokémon is selected', async () => {
+    const fetcher = vi.fn<typeof fetch>(async () => createJsonResponse(validPokemonResponse));
+
+    await expect(
+      getPokemon(new Set(['sprigatito']), {
+        fetcher,
+        getPokemonId: () => 25,
+        maxAttempts: 2,
+      }),
+    ).rejects.toThrow('Unable to select a Generation 9 Pokémon after 2 attempts');
+
+    expect(fetcher).toHaveBeenCalledTimes(2);
+  });
+
   it('fails with endpoint context when a request times out', async () => {
     const fetcher: typeof fetch = async (_input, init) =>
       new Promise<Response>((_resolve, reject) => {

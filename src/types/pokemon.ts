@@ -32,7 +32,7 @@ export type Pokemon = {
   ability: string;
   moves: PokemonMoves;
   pokemonImage: string;
-  itemImage: string;
+  itemImage: string | null;
   item: string;
 };
 
