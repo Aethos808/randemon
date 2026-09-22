@@ -2,7 +2,13 @@
 
 import { AlertTriangle } from 'lucide-react';
 
-export default function Error() {
+import { Button } from '@/components/shadcn/ui/button';
+
+type ErrorProps = {
+  reset: () => void;
+};
+
+export default function Error({ reset }: ErrorProps) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="text-center max-w-md w-full space-y-6 bg-card p-8 rounded-xl shadow-lg">
@@ -13,6 +19,8 @@ export default function Error() {
         <h1 className="text-3xl font-bold text-foreground">Oops! Something went wrong.</h1>
 
         <p className="text-muted-foreground">We encountered an unexpected error.</p>
+
+        <Button onClick={reset}>Try again</Button>
       </div>
     </div>
   );
